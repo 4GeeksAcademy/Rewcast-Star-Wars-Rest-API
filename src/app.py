@@ -287,19 +287,19 @@ def specie(specie_id):
 @app.route('/species', methods=['POST'])
 def create_specie():
     request_body_user = request.get_json()
-    #new_specie = Species(classification=request_body_user["classification"], designation=request_body_user["designation"], average_height=request_body_user["average_height"], gravity=request_body_user["gravity"], population=request_body_user["population"], climate=request_body_user["climate"], terrain=request_body_user["terrain"], surface_water=request_body_user["surface_water"], name=request_body_user["name"])
+    new_specie = Species(classification=request_body_user["classification"], designation=request_body_user["designation"], average_height=request_body_user["average_height"], average_lifespan=request_body_user["average_lifespan"], hair_colors=request_body_user["hair_colors"], skin_colors=request_body_user["skin_colors"], eye_colors=request_body_user["eye_colors"], homeworld=request_body_user["homeworld"], language=request_body_user["language"], name=request_body_user["name"])
     db.session.add(new_specie)
     db.session.commit()
     return jsonify(request_body_user), 200
 
-@app.route('/planets/<int:planet_id>', methods=['DELETE'])
-def delete_planet(planet_id):
-    chosen_planet = Planets.query.get(planet_id)
-    if chosen_planet is None:
-        raise APIException('Planet not found', status_code=404)
-    db.session.delete(chosen_planet)
+@app.route('/species/<int:specie_id>', methods=['DELETE'])
+def delete_speie(specie_id):
+    chosen_specie = Species.query.get(specie_id)
+    if chosen_specie is None:
+        raise APIException('Specie not found', status_code=404)
+    db.session.delete(chosen_specie)
     db.session.commit()
-    return jsonify("Planet successfully deleted"), 200
+    return jsonify("Specie successfully deleted"), 200
 
 # starships methods
 
